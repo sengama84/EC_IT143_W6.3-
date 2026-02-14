@@ -1,0 +1,16 @@
+/*
+EC_IT143_6.3_fwt_s4_se.sql
+Purpose: Step 4 – Create AFTER UPDATE trigger
+*/
+
+CREATE TRIGGER trg_UpdateLastModifiedDate
+ON dbo.t_w3_schools_customers
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE dbo.t_w3_schools_customers
+    SET LastModifiedDate = GETDATE()
+    WHERE CustomerID IN (SELECT CustomerID FROM inserted);
+END;
